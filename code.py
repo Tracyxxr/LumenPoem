@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 # ================= 配置区域 =================
 MOCK_AI = False  
 
-# 尝试从云端保险箱读取 Key
+# 适配 Streamlit Cloud 部署：优先读取云端保险箱的 Key
 try:
     QINIU_API_KEY = st.secrets["QINIU_API_KEY"]
 except:
@@ -24,7 +24,6 @@ THEME_PAPER_COLOR = "#F0EFE9" # 暖灰纸张
 
 # ================= 辅助功能：字体加载 =================
 def get_chinese_font(size=24):
-    # 优先查找当前目录下的 font.ttf
     if os.path.exists("font.ttf"):
         return ImageFont.truetype("font.ttf", size)
     system = platform.system()
@@ -245,10 +244,12 @@ def local_css():
         letter-spacing: 0.1rem;
     }}
 
+    /* 欢迎语样式：支持换行 */
     .hi-text {{
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         color: #888;
-        margin-bottom: 5px;
+        margin-bottom: 15px;
+        line-height: 1.6; /* 增加行高，让两行文字不挤 */
     }}
     .guide-text {{
         font-size: 1.4rem;
@@ -272,7 +273,6 @@ def local_css():
         color: white !important;
     }}
     
-    /* 返回按钮样式 */
     .back-btn-container button {{
         border: none !important;
         font-size: 1.5rem !important;
@@ -332,7 +332,8 @@ def main():
         col1, col2 = st.columns([1.2, 0.8], gap="large")
         
         with col1:
-            st.markdown('<div class="hi-text">Hi! 欢迎来到这里，请你察觉当下的感受，完成一首诗的创作。</div>', unsafe_allow_html=True)
+            # 【这里修改了欢迎语】
+            st.markdown('<div class="hi-text">Hi! 欢迎你来到这里，请你察觉当下的感受，完成一首诗的创作。<br>现在，我为你提供一句提示，你可以在提示的引导下，写下一行诗</div>', unsafe_allow_html=True)
             
             p_col1, p_col2 = st.columns([4, 1.2])
             with p_col1:
@@ -425,5 +426,4 @@ def main():
                 st.rerun()
 
 if __name__ == "__main__":
-
     main()
