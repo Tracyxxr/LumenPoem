@@ -9,8 +9,13 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 # ================= 配置区域 =================
 MOCK_AI = False  
-# 如果分享给他人，建议提醒他们填入自己的 Key，或者你预置好
-QINIU_API_KEY = "sk-80b39617f109c2380eef6058a697fa146f96b059f34423c2149e655be7d424cd" 
+
+# 尝试从云端保险箱读取 Key
+try:
+    QINIU_API_KEY = st.secrets["QINIU_API_KEY"]
+except:
+    QINIU_API_KEY = " " 
+
 QINIU_BASE_URL = "https://api.qnaigc.com/v1"
 
 # ================= 视觉风格定义 =================
@@ -420,4 +425,5 @@ def main():
                 st.rerun()
 
 if __name__ == "__main__":
+
     main()
