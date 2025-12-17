@@ -333,7 +333,7 @@ def main():
         
         with col1:
             # 【这里修改了欢迎语】
-            st.markdown('<div class="hi-text">Hi! 欢迎你来到这里，请你察觉当下的感受，完成一首诗的创作。<br>现在，我为你提供一句提示，你可以在提示的引导下，写下一行诗</div>', unsafe_allow_html=True)
+            st.markdown('<div class="hi-text">Hi! 欢迎你来到这里，请你察觉当下的感受，完成一首诗的创作<br>现在，我为你提供一句提示，你可以在提示的引导下，写下一行诗</div>', unsafe_allow_html=True)
             
             p_col1, p_col2 = st.columns([4, 1.2])
             with p_col1:
@@ -427,3 +427,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
